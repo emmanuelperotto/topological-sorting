@@ -1,4 +1,3 @@
-// A C++ program to print topological sorting of a DAG
 #include <iostream>
 #include <list>
 #include <stack>
@@ -10,37 +9,37 @@
 
 using namespace std;
 
-// Class to represent a graph
 class Graph
 {
-  int V; // No. of vertices'
+  int nVertices;
 
-  // Pointer to an array containing adjacency listsList
+  // adjacency list
   list<int> *adj;
 
   // A function used by topologicalSort
   void topologicalSortUtil(int v, bool visited[], stack<int> &Stack);
 
 public:
-  Graph(int V); // Constructor
+  Graph(int nVertices);
 
   // function to add an edge to graph
-  void addEdge(int v, int w);
+  void addEdge(int originVertex, int destinyVertex);
 
-  // prints a Topological Sort of the complete graph
+  // DFS based topological sort
   void topologicalSort();
+  // Khan's algorithm to topological sort
   void khanTopologicalSort();
 };
 
-Graph::Graph(int V)
+Graph::Graph(int nVertices)
 {
-  this->V = V;
-  adj = new list<int>[V];
+  this->nVertices = nVertices;
+  adj = new list<int>[nVertices];
 }
 
-void Graph::addEdge(int v, int w)
+void Graph::addEdge(int originVertex, int destinyVertex)
 {
-  adj[v].push_back(w); // Add w to v’s list.
+  adj[originVertex].push_back(destinyVertex); // Add destinyVertex to originVertex’s list.
 }
 
 // A recursive function used by topologicalSort
@@ -60,20 +59,20 @@ void Graph::topologicalSortUtil(int v, bool visited[],
   Stack.push(v);
 }
 
-// The function to do Topological Sort. It uses recursive
+// The DFS based function to do Topological Sort. It uses recursive
 // topologicalSortUtil()
 void Graph::topologicalSort()
 {
   stack<int> Stack;
 
   // Mark all the vertices as not visited
-  bool *visited = new bool[V];
-  for (int i = 0; i < V; i++)
+  bool *visited = new bool[nVertices];
+  for (int i = 0; i < nVertices; i++)
     visited[i] = false;
 
   // Call the recursive helper function to store Topological
   // Sort starting from all vertices one by one
-  for (int i = 0; i < V; i++)
+  for (int i = 0; i < nVertices; i++)
     if (visited[i] == false)
       topologicalSortUtil(i, visited, Stack);
 
@@ -84,16 +83,16 @@ void Graph::topologicalSort()
   }
 }
 
-// The function to do Topological Sort.
+// The Khan's algorithm function to do Topological Sort.
 void Graph::khanTopologicalSort()
 {
   // Create a vector to store indegrees of all
   // vertices. Initialize all indegrees as 0.
-  vector<int> in_degree(V, 0);
+  vector<int> in_degree(nVertices, 0);
 
   // Traverse adjacency lists to fill indegrees of
   // vertices.  This step takes O(V+E) time
-  for (int u = 0; u < V; u++)
+  for (int u = 0; u < nVertices; u++)
   {
     list<int>::iterator itr;
     for (itr = adj[u].begin(); itr != adj[u].end(); itr++)
@@ -103,7 +102,7 @@ void Graph::khanTopologicalSort()
   // Create an queue and enqueue all vertices with
   // indegree 0
   queue<int> q;
-  for (int i = 0; i < V; i++)
+  for (int i = 0; i < nVertices; i++)
     if (in_degree[i] == 0)
       q.push(i);
 
@@ -138,7 +137,7 @@ void Graph::khanTopologicalSort()
   }
 
   // Check if there was a cycle
-  if (cnt != V)
+  if (cnt != nVertices)
   {
     cout << "There exists a cycle in the graph\n";
     return;
