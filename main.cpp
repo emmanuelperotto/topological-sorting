@@ -27,8 +27,8 @@ public:
 
   // DFS based topological sort
   void topologicalSort();
-  // Khan's algorithm to topological sort
-  void khanTopologicalSort();
+  // kahn's algorithm to topological sort
+  void kahnTopologicalSort();
 };
 
 Graph::Graph(int nVertices)
@@ -61,6 +61,7 @@ void Graph::topologicalSortUtil(int v, bool visited[],
 
 // The DFS based function to do Topological Sort. It uses recursive
 // topologicalSortUtil()
+// https://www.geeksforgeeks.org/topological-sorting/
 void Graph::topologicalSort()
 {
   stack<int> Stack;
@@ -83,8 +84,9 @@ void Graph::topologicalSort()
   }
 }
 
-// The Khan's algorithm function to do Topological Sort.
-void Graph::khanTopologicalSort()
+// The kahn's algorithm function to do Topological Sort.
+// https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+void Graph::kahnTopologicalSort()
 {
   // Create a vector to store indegrees of all
   // vertices. Initialize all indegrees as 0.
@@ -149,17 +151,36 @@ void Graph::khanTopologicalSort()
   // cout << endl;
 }
 
-// Driver program to test above functions
+void initGraphicVisualization()
+{
+  FILE *fp;
+  fp = popen("gnuplot -persist", "w");
+  if (fp == NULL)
+  {
+    cout << "Error. Check if gnuplot is installed locally\n if not, run sudo apt install gnuplot-x11" << endl;
+    return;
+  }
+  else
+  {
+    fprintf(fp, "set title 'Kahn vs DFS for topological sorting'\n");
+    fprintf(fp, "set autoscale\n");
+    fprintf(fp, "set xlabel 'Time(seconds)'\n");
+    fprintf(fp, "set ylabel 'Nodes'\n");
+    fprintf(fp, "plot 'kahn-data.txt' lt rgb '#E1802A' with lines smooth mcsplines, \
+                      'dfs-data.txt' lt rgb '#773111' with lines smooth mcsplines\n");
+  }
+}
 int main()
 {
-  int nVertices;
-  int originVertex, destinyVertex;
+  int counter = 0;
+  int nVertices, originVertex, destinyVertex;
   vector<string> files = {"top_small.txt", "top_med.txt", "top_large.txt", "top_huge.txt"};
   vector<int> noVertices = {10,
                             100,
                             10000,
                             100000};
-  int counter = 0;
+  ofstream kahnData("kahn-data.txt");
+  ofstream dfsData("dfs-data.txt");
 
   for (string &fileName : files)
   {
@@ -178,26 +199,25 @@ int main()
       graph2.addEdge(originVertex, destinyVertex);
     }
 
-    cout << "================================================================" << endl;
-    cout << "Checking performance for " << noVertices[counter] << " vertices" << endl;
-
-    cout << "--> Normal topological sort" << endl;
     clock_t start = clock();
     graph1.topologicalSort();
     clock_t end = clock();
-    cout << (double)(end - start) / CLOCKS_PER_SEC << " seconds" << endl
-         << endl;
+    double interval = (double)(end - start) / CLOCKS_PER_SEC;
+    dfsData << interval << " " << noVertices[counter] << endl;
 
-    cout << "--> Khan's topological sort" << endl;
-    clock_t startKhan = clock();
-    graph2.khanTopologicalSort();
-    clock_t endKhan = clock();
-    cout << (double)(endKhan - startKhan) / CLOCKS_PER_SEC << " seconds" << endl
-         << endl;
+    clock_t startkahn = clock();
+    graph2.kahnTopologicalSort();
+    clock_t endkahn = clock();
+    double intervalkahn = (double)(endkahn - startkahn) / CLOCKS_PER_SEC;
+    kahnData << intervalkahn << " " << noVertices[counter] << endl;
 
     counter++;
     myFile.close();
   }
 
+  kahnData.close();
+  dfsData.close();
+
+  initGraphicVisualization();
   return 0;
 }
