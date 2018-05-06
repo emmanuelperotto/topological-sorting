@@ -6,6 +6,6 @@
 #include "graph.h"
 
 void initGraphicVisualization();
-void runTopologicalSorting(int type, Graph graph, int numberOfVertices, std::ofstream &dataFile);
+void runTopologicalSorting(int type, Graph graph, std::ofstream &dataFile);
 
 #endif

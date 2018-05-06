@@ -3,6 +3,8 @@
 #include <iostream>
 #include <time.h>
 
+// Function: initGraphicVisualization
+// function to show DFS Topological Sort vs Kahn Topological Sort performance graphic
 void initGraphicVisualization()
 {
   FILE *fp;
@@ -23,7 +25,16 @@ void initGraphicVisualization()
   }
 }
 
-void runTopologicalSorting(int type, Graph graph, int numberOfVertices, std::ofstream &dataFile)
+// Function: runTopologicalSorting
+// function to run Topological Sort algorithms in a DAG graph
+//
+// Parameters:
+//  - type: which algorithm will be used (0 for DFS and 1 for Kahn)
+//  - graph: the DAG graph instance. (see <Graph>)
+//  - dataFile: pointer to a previews opened ofstream file. This file will receive the number of vertices
+//              from the graph and the execution time from the choosen algorithm
+
+void runTopologicalSorting(int type, Graph graph, std::ofstream &dataFile)
 {
 
   clock_t start = clock();
@@ -31,5 +42,5 @@ void runTopologicalSorting(int type, Graph graph, int numberOfVertices, std::ofs
   clock_t end = clock();
   double interval = (double)(end - start) / CLOCKS_PER_SEC;
 
-  dataFile << interval << " " << numberOfVertices << std::endl;
+  dataFile << interval << " " << graph.getNVertices() << std::endl;
 }

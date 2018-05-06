@@ -7,6 +7,8 @@
 #include <list>
 #include <stack>
 
+// Class: Graph
+// a simple graph class that holds number of vertices and an adjacency list
 class Graph
 {
   int nVertices;
@@ -27,6 +29,8 @@ public:
   void topologicalSort();
   // kahn's algorithm to topological sort
   void kahnTopologicalSort();
+
+  int getNVertices();
 };
 
 #endif

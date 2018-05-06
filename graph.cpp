@@ -1,24 +1,38 @@
 #include "graph.h"
 
+// Constructor: Graph
+// Initializes the object with number of vertices and alloc the adjacency list.
+//
+// Parameters:
+//  - nVertices: the number of vertices (must be greater than 0)
 Graph::Graph(int nVertices)
 {
   this->nVertices = nVertices;
   adj = new std::list<int>[nVertices];
 }
 
+// Function: addEdge
+// add an origin vertex to destiny vertex on DAG graph using the adjacency list.
+//
+// Parameters:
+//    - originVertex: the start vertex
+//    - destinyVertex: the end vertex
 void Graph::addEdge(int originVertex, int destinyVertex)
 {
-  adj[originVertex].push_back(destinyVertex); // Add destinyVertex to originVertex’s list.
+  adj[originVertex].push_back(destinyVertex);
 }
 
-// A recursive function used by topologicalSort
 void Graph::topologicalSortUtil(int v, bool visited[],
                                 std::stack<int> &Stack)
 {
   // Mark the current node as visited.
   visited[v] = true;
+  //
 
-  // Recur for all the vertices adjacent to this vertex
+  //    - originVertex: the start vertexRecur for all the vertices adjacent to this ver
+  //    - destinyVertex: the end vertex
+  //
+  // tex
   std::list<int>::iterator i;
   for (i = adj[v].begin(); i != adj[v].end(); ++i)
     if (!visited[*i])
@@ -28,9 +42,9 @@ void Graph::topologicalSortUtil(int v, bool visited[],
   Stack.push(v);
 }
 
-// The DFS based function to do Topological Sort. It uses recursive
-// topologicalSortUtil()
-// https://www.geeksforgeeks.org/topological-sorting/
+// Function: topologicalSort
+// The DFS based function to do Topological Sort.
+// reference: <https://www.geeksforgeeks.org/topological-sorting/>
 void Graph::topologicalSort()
 {
   std::stack<int> Stack;
@@ -53,8 +67,9 @@ void Graph::topologicalSort()
   }
 }
 
+// Function: kahnTopologicalSort
 // The kahn's algorithm function to do Topological Sort.
-// https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+// reference: <https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/>
 void Graph::kahnTopologicalSort()
 {
   // Create a vector to store indegrees of all
@@ -118,4 +133,14 @@ void Graph::kahnTopologicalSort()
   for (int i = 0; i < top_order.size(); i++)
     std::cout << top_order[i] << " ";
   std::cout << std::endl;
+}
+
+// Function: getNVertices
+// getter for number of vertices
+//
+// Returns:
+//  - nVertices
+int Graph::getNVertices()
+{
+  return this->nVertices;
 }

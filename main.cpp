@@ -4,6 +4,14 @@
 
 using namespace std;
 
+// Function: main
+// the main software function
+// It:
+//  - reads graph files with different vertices (10, 100, 10000, 100000)
+//  - creates 4 graphs (with 10, 100, 10000 and 100000 vertices) with its edges
+//  - executes the DFS topological sort algorithm and the Kahn Topological sort algorithm in each graph
+//  - stores the time(seconds) vs node info in the results folder
+//  - opens the graphic visualization with gnuplot
 int main()
 {
   int counter = 0;
@@ -26,16 +34,18 @@ int main()
 
     graphFile >> nVertices;
     Graph graph(nVertices);
+    Graph graph2(nVertices);
 
     while (!graphFile.eof())
     {
       graphFile >> originVertex;
       graphFile >> destinyVertex;
       graph.addEdge(originVertex, destinyVertex);
+      graph2.addEdge(originVertex, destinyVertex);
     }
 
-    runTopologicalSorting(0, graph, noVertices[counter], dfsDataFile);
-    runTopologicalSorting(1, graph, noVertices[counter], kahnDataFile);
+    runTopologicalSorting(0, graph, dfsDataFile);
+    runTopologicalSorting(1, graph2, kahnDataFile);
 
     counter++;
     graphFile.close();
