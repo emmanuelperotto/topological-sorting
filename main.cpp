@@ -21,16 +21,16 @@ int main()
 
   for (string &fileName : files)
   {
-    ifstream myFile;
-    myFile.open(fileName);
+    ifstream graphFile;
+    graphFile.open(fileName);
 
-    myFile >> nVertices;
+    graphFile >> nVertices;
     Graph graph(nVertices);
 
-    while (!myFile.eof())
+    while (!graphFile.eof())
     {
-      myFile >> originVertex;
-      myFile >> destinyVertex;
+      graphFile >> originVertex;
+      graphFile >> destinyVertex;
       graph.addEdge(originVertex, destinyVertex);
     }
 
@@ -38,7 +38,7 @@ int main()
     runTopologicalSorting(1, graph, noVertices[counter], kahnDataFile);
 
     counter++;
-    myFile.close();
+    graphFile.close();
   }
 
   dfsDataFile.close();
