@@ -46,3 +46,10 @@ Com um desvio padrão de:
 * 1786.014415
 
 Concluí-se, portanto, que, em média, o algoritmo de Kahn apresenta melhor performance até 4.444 vértices com um desvio padrão de 1786 vértices.
+
+Assim, para os grafos analisados, o melhor algoritmo é:
+
+* 10 vértices: Kahn
+* 100 vértices: Kahn
+* 10000 vértices: DFS
+* 100000 vértices: DFS
