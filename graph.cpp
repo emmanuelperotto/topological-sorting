@@ -135,9 +135,8 @@ void Graph::kahnTopologicalSort()
     return;
   }
 
-  
   std::ofstream kahnFile;
-  std::string fileName = "topological-order-khan-" + std::to_string(nVertices) + ".txt"; 
+  std::string fileName = "topological-order-khan-" + std::to_string(nVertices) + ".txt";
   kahnFile.open(fileName);
 
   // Print topological order

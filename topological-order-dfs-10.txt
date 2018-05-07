@@ -1,0 +1,2 @@
+Ordenação topológica de Kahn para 10 vertices
+9 7 6 8 4 3 5 0 1 2 

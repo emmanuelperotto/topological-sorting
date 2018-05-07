@@ -55,5 +55,10 @@ int main()
   kahnDataFile.close();
 
   initGraphicVisualization();
+
+  cout << "=====================================================================================================================================" << endl;
+  cout << "A conclusão sobre os resultados do gráfico podem ser encontrados no README.md" << endl;
+  cout << "As ordenações topológicas se encontram na pasta raiz do projeto, com o seguinte formato: topological-order-<algoritmo>-<vertices>.txt" << endl;
+  cout << "=====================================================================================================================================" << endl;
   return 0;
 }
