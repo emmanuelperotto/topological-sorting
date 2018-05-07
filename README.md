@@ -53,3 +53,11 @@ Assim, para os grafos analisados, o melhor algoritmo é:
 * 100 vértices: Kahn
 * 10000 vértices: DFS
 * 100000 vértices: DFS
+
+## Created by this sarradeiros:
+
+* sarradation boy nº 1: Emmanuel Gustavo Rinaldi Perotto - 15/0124163
+
+* sarradation boy nº 2: Lucas da Silva Moutinho - 15/0015747
+
+Thanks to our mothers that were there to put us in the world. We love You S2!!
