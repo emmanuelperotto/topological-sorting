@@ -60,9 +60,15 @@ void Graph::topologicalSort()
     if (visited[i] == false)
       topologicalSortUtil(i, visited, Stack);
 
-  // Print contents of stack
+  std::ofstream dfsFile;
+  std::string fileName = "topological-order-dfs-" + std::to_string(nVertices) + ".txt";
+  dfsFile.open(fileName);
+
+  dfsFile << "Ordenação topológica de Kahn para " << nVertices << " vertices" << std::endl;
+  // Print topological-order
   while (Stack.empty() == false)
   {
+    dfsFile << Stack.top() << " ";
     Stack.pop();
   }
 }
@@ -129,10 +135,15 @@ void Graph::kahnTopologicalSort()
     return;
   }
 
+  
+  std::ofstream kahnFile;
+  std::string fileName = "topological-order-khan-" + std::to_string(nVertices) + ".txt"; 
+  kahnFile.open(fileName);
+
   // Print topological order
-  for (int i = 0; i < top_order.size(); i++)
-    std::cout << top_order[i] << " ";
-  std::cout << std::endl;
+  kahnFile << "Ordenação topológica de Kahn para " << nVertices << " vertices " << std::endl;
+  for (size_t i = 0; i < top_order.size(); i++)
+    kahnFile << top_order[i] << " ";
 }
 
 // Function: getNVertices
