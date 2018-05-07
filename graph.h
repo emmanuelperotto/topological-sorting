@@ -6,6 +6,7 @@
 #include <queue>
 #include <list>
 #include <stack>
+#include <fstream>
 
 // Class: Graph
 // a simple graph class that holds number of vertices and an adjacency list
